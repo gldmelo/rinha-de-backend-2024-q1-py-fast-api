@@ -1,8 +1,6 @@
 from fastapi import FastAPI, Response
 from fastapi import Depends
-#from fastapi.responses import PlainTextResponse
 from fastapi_asyncpg import configure_asyncpg
-#import asyncpg
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -23,7 +21,7 @@ def obter_cliente_limite(id: int):
     return limites_clientes[id - 1]
 
 def is_cliente_invalido(id: int):
-     return id < 1 or id > 5
+    return id < 1 or id > 5
 
 def is_transacao_invalida(transacao: TransacaoRequest):
     return (transacao.valor <= 0 \
@@ -62,8 +60,11 @@ async def transacoes(id: int, response: Response, transacaoRequest: TransacaoReq
     
     nome_funcao = obter_nome_funcao_transacao(transacaoRequest.tipo)
     row_saldo = await db.fetch(f'SELECT {nome_funcao} ($1, $2, $3) as saldo', id, transacaoRequest.valor, transacaoRequest.descricao)
-    #if (len(row_saldo) > 0):
+    
     saldo = row_saldo[0]['saldo']
+    if (saldo == None):
+        response.status_code = 422
+        return {}
     
     return {
         "limite": obter_cliente_limite(id),
