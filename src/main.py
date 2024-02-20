@@ -4,7 +4,8 @@ from fastapi_asyncpg import configure_asyncpg
 from pydantic import BaseModel
 
 app = FastAPI()
-db = configure_asyncpg(app, "postgresql://admin:123@192.168.0.10/rinha", )
+#db = configure_asyncpg(app, "postgresql://admin:123@192.168.0.10/rinha")
+db = configure_asyncpg(app, "postgresql://admin:123@db/rinha")
 
 @db.on_init
 async def initialization(conn):
