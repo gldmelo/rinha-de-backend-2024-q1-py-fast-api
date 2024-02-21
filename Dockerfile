@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ./src/requirements.txt .
 
 # Install dependencies
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Copy the rest of your application code into the container
 WORKDIR /src
@@ -18,4 +18,4 @@ COPY . /src
 EXPOSE 8000
 
 # Command to run your FastAPI application
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "critical"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info", "--proxy-headers"]

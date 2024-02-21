@@ -5,12 +5,12 @@
 # You can also run `make switch-to-poetry` to use the poetry package manager.
 fastapi
 uvicorn
-#sqlmodel
-#typer
-#dynaconf
-#jinja2
-#python-jose[cryptography]
-#passlib[bcrypt]
-#python-multipart
+sqlmodel
+typer
+dynaconf
+jinja2
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
 asyncpg
 fastapi_asyncpg
